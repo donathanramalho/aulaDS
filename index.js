@@ -1,12 +1,9 @@
 const express = require('express');
-const router = require('./router');
+require('dotenv').config();
 const app = express();
 
-require('./startup/db')(); // Conectar no banco
+require('./startup/db')(); // Conectar banco
+require('./startup/router')(app); // Rodar o router
 
-router(app);
-
-const port = 8080;
-const server = app.listen(port, () => console.log(`Listening on port ${port}`));
-
-module.exports = server;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
